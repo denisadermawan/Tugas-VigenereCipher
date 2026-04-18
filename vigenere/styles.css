@@ -1,0 +1,56 @@
+body {
+  width: 100%;
+  margin: 0;
+  font-size: 19px;
+  font-family: 'montserrat';
+  color: #f2d4af;
+}
+
+.form, .namaKel, .result {
+  margin: 0 auto;
+  background-color: rgba(28, 14, 1, 0.8);
+  max-width: 450px;
+  min-width: 300px;
+  padding: 30px 50px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.pickBtn {
+    display: flex;
+    margin: 20px auto;
+    gap: 25px;
+    max-width: 450px;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+textarea, input {
+    width: 100%;
+    max-width: 500px;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+button {
+    display: block;
+    margin: 1em auto;
+    height: 2em;
+    font-size: 1.1rem;
+    background-color: #302117;
+    border: none;
+    color: #e7d2b9;
+    min-width: 300px;
+}
+
+button:hover {
+    background-color: #3d2b00;
+}

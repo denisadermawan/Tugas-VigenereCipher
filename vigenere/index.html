@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigenère Cipher</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="./vuejs/vue.global.js "></script>
+
+</head>
+<body>
+    <div id="app">
+        <div class="namaKel">
+            <h3>Nama Kelompok:</h3>
+            <ol>
+                <li type="1">Alya Humaira (232350037)</li>
+                <li>Nayla Siva Khan (232350039)</li>
+                <li>Ratu Velisya Siregar (232350041)</li>
+                <li>Denisa Dermawan (232350042)</li>
+                <li>Alya Levina Septiani (232350050)</li>
+            </ol>
+        </div>
+        <div class="pickBtn">
+            <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
+                <li><button @click="satu">Enkripsi</button></li>
+                <li><button @click="dua">Dekripsi</button></li>
+            </ul>
+        </div>
+        <div v-if="pilih">
+            <div class="form">
+            <label for="str">Plaintext:</label>
+            <textarea name="text" id="str" rows="4" placeholder="Masukkan Plaintext yang ingin dienkripsi..."></textarea>
+
+            <label for="key">Kunci:</label>
+            <input type="text" name="key" id="key" placeholder="Masukkan kunci...">
+
+            <button @click="enkripBtn">Enkripsi</button>
+            </div>
+        </div>
+
+        <div v-else>
+            <div class="form">
+            <label for="str">Chiphertext:</label>
+            <textarea name="text" id="strA" rows="4" placeholder="Masukkan Chiphertext yang ingin didekripsi..."></textarea>
+
+            <label for="key">Kunci:</label>
+            <input type="text" name="key" id="keyA" placeholder="Masukkan kunci...">
+            <button @click="dekripBtn">Dekripsi</button>
+            </div>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+    
+    <script>
+        const { createApp } = Vue;
+            createApp({
+            
+            data(){
+                return{
+                    pilih: true
+
+                }
+            },
+            methods:{
+                satu(){
+                    this.pilih = true;
+                },
+                dua(){
+                    this.pilih = false;
+                },
+                enkripBtn() {
+                    let str = document.getElementById('str').value;
+                    let keyword = document.getElementById('key').value;
+
+                    if (!str || !keyword) {
+                        document.getElementById('result').innerHTML = "<strong>Error:</strong> Harap isi teks dan kunci terlebih dahulu.";
+                    return;
+                }
+
+                let keyForProcess = keyword.toUpperCase();
+                let plainText = str;
+
+                let key = generateKey(plainText, keyForProcess);
+
+                let cipher_text = cipherText(plainText, key);
+
+                document.getElementById('result').innerHTML = `
+                    <strong>Hasil:</strong> ${escapeHtml(cipher_text)}
+                `;
+                }, 
+                dekripBtn() {
+                    let cipherTextInput = document.getElementById('strA').value;
+                    let keyword = document.getElementById('keyA').value;
+
+                    if (!cipherTextInput || !keyword) {
+                        document.getElementById('result').innerHTML = "<strong>Error:</strong> Harap isi teks dan kunci terlebih dahulu.";
+                        return;
+                    }
+
+                    let keyForProcess = keyword.toUpperCase();
+                    let cipherTextForDecrypt = cipherTextInput;
+
+                    let key = generateKey(cipherTextForDecrypt, keyForProcess);
+                    let decrypted_text = originalText(cipherTextForDecrypt, key);
+
+                    document.getElementById('result').innerHTML = `
+                        <strong>Hasil:</strong> ${escapeHtml(decrypted_text)}
+                    `;
+                }
+
+            }
+        }).mount('#app');
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
